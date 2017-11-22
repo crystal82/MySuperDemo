@@ -1,5 +1,16 @@
 apply plugin: 'com.android.application'
 
+static def appName() {
+    return "ProjectName"
+}
+
+//获取时间戳 HHmm
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "27.0.0"
@@ -11,10 +22,62 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
+            buildConfigField "boolean", "APP_WORK_TYPE", 'false'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "boolean", "APP_WORK_TYPE", 'false'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        //AS 3.0和debug不兼容
+        //local {
+        //    buildConfigField "boolean", "APP_WORK_TYPE", 'false'
+        //    minifyEnabled false
+        //    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        //}
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+
+    // 多渠道定义
+    //productFlavors {
+    //    uascent {
+    //        manifestPlaceholders = [CHANNEL_VALUE: "uascent"]
+    //    }
+    //}
+
+    // 根据渠道名称和release或debug类型，修改生成的apk名字  AS3.0   variant.outputs.all
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def oldFile = output.outputFile
+            def newName = "${project.projectDir}/../outputs/apks/";
+            if (variant.buildType.name == 'release') {
+                //def productFlavorsName = variant.productFlavors[0].name; //多渠道定义名称
+                def releaseApkName = appName() + '-' + defaultConfig.versionName + '-sign-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+                //outputFileName = new File(releaseApkName)
+            }
+            if (variant.buildType.name == 'debug') {
+                //def productFlavorsName = variant.productFlavors[0].name;
+                def releaseApkName = appName() + '-' + defaultConfig.versionName + '-debug-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
+
+            if (variant.buildType.name == 'local') {
+                //def productFlavorsName = variant.productFlavors[0].name;
+                def releaseApkName = appName() + '-' + defaultConfig.versionName + '-local-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
         }
     }
 }
