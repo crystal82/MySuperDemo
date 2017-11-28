@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MySuperDemo</string>
+
+    <!--DialogTutorial-->
+    <string name="dialog_show_activity_dialog">显示ActivityDialog</string>
+    <string name="dialog_show_new_dialog">显示new Dialog</string>
+    <string name="dialog_show_custom_dialog">显示自定义Dialog</string>
+    <string name="dialog_show_dialog_util">使用Dialog Utils</string>
+
 </resources>

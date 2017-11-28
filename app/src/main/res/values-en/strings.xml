@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MySuperDemo</string>
+
+    <!--DialogTutorial-->
+    <string name="dialog_show_activity_dialog">show activity dialog</string>
+    <string name="dialog_show_new_dialog">show new dialog</string>
+    <string name="dialog_show_custom_dialog">show custom dialog</string>
+    <string name="dialog_show_dialog_util">show dialog util</string>
+</resources>
