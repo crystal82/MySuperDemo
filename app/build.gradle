@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 static def appName() {
-    return "ProjectName"
+    return "MySuperDemo"
 }
 
 //获取时间戳 HHmm
@@ -25,12 +25,14 @@ android {
 
     buildTypes {
         release {
-            buildConfigField "boolean", "APP_WORK_TYPE", 'false'
-            minifyEnabled false
+            buildConfigField "boolean", "ENABLE_DEBUG", 'false'
+            buildConfigField('String', 'LOG_TAG', "\"${appName()}\"")
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "boolean", "APP_WORK_TYPE", 'false'
+            buildConfigField "boolean", "ENABLE_DEBUG", 'true'
+            buildConfigField('String', 'LOG_TAG', "\"${appName()}\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
