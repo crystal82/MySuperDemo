@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextItem"
+        android:layout_width="match_parent"
+        android:onClick="showDialogActivity"
+        android:text="@string/dialog_show_activity_dialog"/>
+
+    <TextView
+        style="@style/TextItem"
+        android:layout_width="match_parent"
+        android:onClick="showCustomDialog"
+        android:text="@string/dialog_show_custom_dialog"/>
+
+    <TextView
+        style="@style/TextItem"
+        android:layout_width="match_parent"
+        android:onClick="showUtilDialog"
+        android:text="@string/dialog_show_dialog_util"/>
+
+    <TextView
+        style="@style/TextItem"
+        android:layout_width="match_parent"
+        android:onClick="showNewDialog"
+        android:text="@string/dialog_show_new_dialog"/>
+</LinearLayout>
