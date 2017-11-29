@@ -44,7 +44,27 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <!--Text条目,底部带线-->
     <style name="TextItem" parent="TextBlack">
         <item name="android:padding">@dimen/dimen_8dp</item>
+        <item name="android:background">@drawable/line_white_selector</item>
     </style>
+
+
+    <!--默认按钮-->
+    <style name="ButtonNormal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_20sp</item>
+        <item name="android:padding">@dimen/dimen_8dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!--圆角按钮-->
+    <style name="ButtonRound" parent="ButtonNormal">
+        <item name="android:background">@drawable/round_bg_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

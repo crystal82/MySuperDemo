@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MySuperDemo</string>
+    <string name="title">title</string>
 
     <!--DialogTutorial-->
     <string name="dialog_show_activity_dialog">显示ActivityDialog</string>
@@ -7,4 +8,6 @@
     <string name="dialog_show_custom_dialog">显示自定义Dialog</string>
     <string name="dialog_show_dialog_util">使用Dialog Utils</string>
 
+    <string name="btn_sure">确定</string>
+    <string name="btn_cancel">取消</string>
 </resources>

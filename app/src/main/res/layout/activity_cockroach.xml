@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_20dp">
+
+        <Button
+            style="@style/TextBlack"
+            android:layout_weight="1"
+            android:onClick="doInstallClick"
+            android:text="安装"/>
+
+        <Button
+            style="@style/TextBlack"
+            android:layout_weight="1"
+            android:onClick="doUnInstallClick"
+            android:text="卸载"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_get_error"
+        style="@style/ButtonRound"
+        android:text="get error"/>
+
+    <TextView
+        android:id="@+id/tv_cockroach_result"
+        style="@style/TextBlack"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:text="tv_cockroach_result"/>
+</LinearLayout>
