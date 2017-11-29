@@ -18,9 +18,10 @@ public class MyApplication  extends Application {
     public void onCreate() {
         super.onCreate();
 
-        initCockroach();
+        //initCockroach();
     }
 
+    //异常捕获，防崩溃处理
     private void initCockroach() {
         Cockroach.install(new Cockroach.ExceptionHandler() {
             @Override
