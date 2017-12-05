@@ -34,9 +34,9 @@ public class CommonDialog extends BaseDialog implements View.OnClickListener {
     public CommonDialog(Context context, String contentStr, String sureStr) {
         super(context);
 
+        initDialog(context);
         mViewHolder.tv_ok.setText(sureStr);
         mViewHolder.tv_content.setText(contentStr);
-        initDialog(context);
     }
 
     private void initDialog(Context context) {
@@ -61,7 +61,7 @@ public class CommonDialog extends BaseDialog implements View.OnClickListener {
         if (mCommonDialogListener != null) {
             if (view == mViewHolder.tv_ok) {
                 mCommonDialogListener.onOkClick(view);
-            } else {
+            } else if(view == mViewHolder.tv_cancel) {
                 mCommonDialogListener.onCancelClick(view);
             }
         } else {

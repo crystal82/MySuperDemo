@@ -22,13 +22,15 @@ public class DialogMainActivity extends AppCompatActivity {
 
     //显示自定义Dialog
     public void showCustomDialog(View view) {
+        CommonDialog commonDialog = new CommonDialog(this, "TestShow", "Sure");
+        commonDialog.showDialog();
     }
 
-    //显示自定义Dialog
+    //Dialog工具
     public void showUtilDialog(View view) {
     }
 
-    //显示自定义Dialog
+    //直接new
     public void showNewDialog(View view) {
     }
 }
