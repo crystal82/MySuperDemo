@@ -12,7 +12,7 @@ import com.knight.jone.mySuperDemo.simpleTest.CockroachActivity;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    String[] titles = {"Cockroach"};
+    String[] titles = {"Cockroach", "DialogTutorial",};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
+        switch (position) {
             case 0:
                 startActivity(new Intent(this, CockroachActivity.class));
                 break;

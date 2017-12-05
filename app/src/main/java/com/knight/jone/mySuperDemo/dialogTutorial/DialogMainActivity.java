@@ -17,7 +17,7 @@ public class DialogMainActivity extends AppCompatActivity {
 
     //显示Activity使用dialog,theme
     public void showDialogActivity(View view) {
-        startActivity(new Intent(this, DialogMainActivity.class));
+        startActivity(new Intent(this, DialogActivity.class));
     }
 
     //显示自定义Dialog
