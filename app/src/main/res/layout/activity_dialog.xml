@@ -12,6 +12,11 @@
         style="@style/DialogTitle"
         android:text="DialogTitle"/>
 
+    <!--不添加dialog不沾满屏幕-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
     <TextView
         android:id="@+id/tv_content"
         style="@style/TextViewNormal"
@@ -19,6 +24,8 @@
         android:text="content"/>
 
     <LinearLayout
+        android:paddingTop="@dimen/dimen_10dp"
+        android:paddingBottom="@dimen/dimen_10dp"
         android:id="@+id/ll_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

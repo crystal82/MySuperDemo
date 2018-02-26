@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ConstraintTest"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,6 +31,8 @@
         <activity android:name=".netRequest.OkhttpTutorial">
         </activity>
         <activity android:name=".netRequest.RetrofitTutorial">
+        </activity>
+        <activity android:name=".hotUpdata.ClassLoaderActivity">
         </activity>
     </application>
 

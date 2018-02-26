@@ -7,8 +7,8 @@
     <dimen name="dimen_16dp">16dp</dimen>
     <dimen name="dimen_20dp">20dp</dimen>
     <dimen name="dimen_22dp">22dp</dimen>
-    <dimen name="dimen_30dp">30dp</dimen>
     <dimen name="dimen_26dp">26dp</dimen>
+    <dimen name="dimen_30dp">30dp</dimen>
 
     <dimen name="font_8sp">8sp</dimen>
     <dimen name="font_22sp">22sp</dimen>
