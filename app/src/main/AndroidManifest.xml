@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.knight.jone.mySuperDemo">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ConstraintTest"
+            android:name=".netRequest.OkhttpTutorial"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -27,8 +28,6 @@
         <activity android:name=".simpleTest.CockroachActivity">
         </activity>
         <activity android:name=".netRequest.VolleyTutorial">
-        </activity>
-        <activity android:name=".netRequest.OkhttpTutorial">
         </activity>
         <activity android:name=".netRequest.RetrofitTutorial">
         </activity>

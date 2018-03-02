@@ -13,12 +13,18 @@ import com.knight.jone.mySuperDemo.utils.Lg;
  */
 
 public class MyApplication  extends Application {
+    public static MyApplication mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
 
         //initCockroach();
+    }
+
+    public static MyApplication getInstance() {
+        return mInstance;
     }
 
     //异常捕获，防崩溃处理
