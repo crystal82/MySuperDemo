@@ -3,6 +3,7 @@
           package="com.knight.jone.mySuperDemo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -32,6 +33,8 @@
         <activity android:name=".netRequest.RetrofitTutorial">
         </activity>
         <activity android:name=".hotUpdata.ClassLoaderActivity">
+        </activity>
+        <activity android:name=".netRequest.OkhttpCacheTest">
         </activity>
     </application>
 

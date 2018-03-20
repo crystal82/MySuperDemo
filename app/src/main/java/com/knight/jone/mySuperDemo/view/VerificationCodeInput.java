@@ -62,6 +62,8 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
         boxHeight = (int) a.getDimension(R.styleable.vericationCodeInput_child_height, boxHeight);
         initViews();
 
+        invalidate();
+        invalidate(1,2,3,4);
     }
 
 

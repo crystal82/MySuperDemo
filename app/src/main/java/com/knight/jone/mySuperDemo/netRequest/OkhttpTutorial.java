@@ -1,5 +1,6 @@
 package com.knight.jone.mySuperDemo.netRequest;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -30,8 +32,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.internal.cache.CacheInterceptor;
 
-public class OkhttpTutorial extends AppCompatActivity {
+public class OkhttpTutorial extends Activity {
     @BindView(R.id.textView)
     TextView mTextView;
     @BindView(R.id.getButton)
@@ -65,6 +68,7 @@ public class OkhttpTutorial extends AppCompatActivity {
             Lg.d("network interceptor:begin");
             Response response = chain.proceed(request);
             Lg.d("network interceptor:end");
+
             return response;
         }
     };
@@ -75,6 +79,32 @@ public class OkhttpTutorial extends AppCompatActivity {
         setContentView(R.layout.activity_okhttp_tutorial);
         ButterKnife.bind(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    public void cacheTest(){
+        CacheControl cacheControl = new CacheControl.Builder()
+                .maxAge(10, TimeUnit.SECONDS)//最大缓存时间
+                .maxStale(365, TimeUnit.DAYS)//缓存过时时间
+                .build();
+    }
+
+    public void test(){
+        //cache url
+        File httpCacheDirectory = new File(getApplicationContext().getExternalCacheDir()+"/cache", "responses");
+        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+        Cache cache = new Cache(httpCacheDirectory, cacheSize);
+
+        Request request = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).build();
+        request = request.newBuilder()
+                .cacheControl(CacheControl.FORCE_CACHE)
+                .build();
     }
 
     public void jointUrl() {
@@ -91,6 +121,7 @@ public class OkhttpTutorial extends AppCompatActivity {
 
     public void initOkhttp() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+
         File         cacheDir     = new File(getCacheDir(), "okhttp_cache");
         //File cacheDir = new File(getExternalCacheDir(), "okhttp");
         Cache cache = new Cache(cacheDir, 10 * 1024 * 1024);
