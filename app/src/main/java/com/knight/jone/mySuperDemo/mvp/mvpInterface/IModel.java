@@ -1,4 +1,4 @@
-package com.knight.jone.mySuperDemo.mvp.mvp;
+package com.knight.jone.mySuperDemo.mvp.mvpInterface;
 
 /**
  * Created by GaoSheng on 2016/11/26.

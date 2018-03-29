@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.knight.jone.mySuperDemo.mvp.mvp.IView;
+import com.knight.jone.mySuperDemo.mvp.mvpInterface.IView;
 import com.knight.jone.mySuperDemo.utils.Lg;
 
 public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity implements

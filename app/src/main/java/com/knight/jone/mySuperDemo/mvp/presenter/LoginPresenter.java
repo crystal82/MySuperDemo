@@ -4,7 +4,7 @@ import com.knight.jone.mySuperDemo.mvp.LoginActivity;
 import com.knight.jone.mySuperDemo.mvp.base.BasePresenter;
 import com.knight.jone.mySuperDemo.mvp.contract.LoginContract;
 import com.knight.jone.mySuperDemo.mvp.model.LoginModel;
-import com.knight.jone.mySuperDemo.mvp.mvp.IModel;
+import com.knight.jone.mySuperDemo.mvp.mvpInterface.IModel;
 import com.knight.jone.mySuperDemo.utils.Lg;
 
 import java.util.HashMap;

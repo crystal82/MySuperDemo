@@ -2,7 +2,7 @@ package com.knight.jone.mySuperDemo.mvp.base;
 
 import com.knight.jone.mySuperDemo.mvp.http.Http;
 import com.knight.jone.mySuperDemo.mvp.http.HttpService;
-import com.knight.jone.mySuperDemo.mvp.mvp.IModel;
+import com.knight.jone.mySuperDemo.mvp.mvpInterface.IModel;
 
 /**
  * Created by gaosheng on 2016/12/1.

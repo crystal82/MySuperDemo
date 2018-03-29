@@ -1,9 +1,9 @@
 package com.knight.jone.mySuperDemo.mvp.base;
 
 
-import com.knight.jone.mySuperDemo.mvp.mvp.IModel;
-import com.knight.jone.mySuperDemo.mvp.mvp.IPresenter;
-import com.knight.jone.mySuperDemo.mvp.mvp.IView;
+import com.knight.jone.mySuperDemo.mvp.mvpInterface.IModel;
+import com.knight.jone.mySuperDemo.mvp.mvpInterface.IPresenter;
+import com.knight.jone.mySuperDemo.mvp.mvpInterface.IView;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
