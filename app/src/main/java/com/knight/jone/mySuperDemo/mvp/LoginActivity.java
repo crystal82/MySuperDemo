@@ -1,20 +1,21 @@
 package com.knight.jone.mySuperDemo.mvp;
 
-import android.support.v7.widget.AppCompatButton;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 
 import com.knight.jone.mySuperDemo.R;
 import com.knight.jone.mySuperDemo.mvp.base.BaseActivity;
 import com.knight.jone.mySuperDemo.mvp.contract.LoginContract;
 import com.knight.jone.mySuperDemo.mvp.presenter.LoginPresenter;
 
-import butterknife.ButterKnife;
-
 public class LoginActivity extends BaseActivity<LoginPresenter> implements
         LoginContract.LoginView {
 
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected LoginPresenter loadPresenter() {
@@ -34,11 +35,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements
     @Override
     protected void initView() {
         //ButterKnife.inject(this);
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
     }
 
     @Override

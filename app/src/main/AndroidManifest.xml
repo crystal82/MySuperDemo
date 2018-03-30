@@ -38,6 +38,8 @@
         <activity android:name=".netRequest.OkhttpCacheTest">
         </activity>
         <activity android:name=".mvp.LoginActivity"/>
+        <activity android:name=".mvpMy.DoubanActivity">
+        </activity>
     </application>
 
 </manifest>

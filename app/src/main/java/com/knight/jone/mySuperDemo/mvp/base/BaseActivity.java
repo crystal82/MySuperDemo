@@ -8,7 +8,8 @@ import android.widget.Toast;
 import com.knight.jone.mySuperDemo.mvp.mvpInterface.IView;
 import com.knight.jone.mySuperDemo.utils.Lg;
 
-public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity implements
+public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity
+        implements
         IView, View.OnClickListener {
     protected View view;
 
@@ -26,13 +27,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
         initData();
     }
 
-    protected abstract P loadPresenter();
-
     private void initCommonData() {
-
         if (mPresenter != null)
             mPresenter.attachView(this);
     }
+
+    protected abstract P loadPresenter();
+
+    protected abstract int getLayoutId();
 
     protected abstract void initData();
 
@@ -40,7 +42,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
 
     protected abstract void initView();
 
-    protected abstract int getLayoutId();
 
     protected abstract void otherViewClick(View view);
 
@@ -53,7 +54,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
     }
 
     /**
-     * 点击的事件的统一的处理
+     * 点击的事件的统一的处理，如果需要添加回退按钮则在BaseActivity添加
      *
      * @param view
      */

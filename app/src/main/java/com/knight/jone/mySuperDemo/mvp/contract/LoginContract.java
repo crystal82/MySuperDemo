@@ -25,4 +25,8 @@ public class LoginContract {
     public interface LoginPresenter {
         void login(String name, String pwd);
     }
+
+    public interface LoginModel {
+        void login(String name, String pwd);
+    }
 }

@@ -6,6 +6,7 @@ import com.knight.jone.mySuperDemo.MyApplication;
 import com.knight.jone.mySuperDemo.exception.ApiException;
 import com.knight.jone.mySuperDemo.mvp.LoginBean;
 import com.knight.jone.mySuperDemo.mvp.base.BaseModel;
+import com.knight.jone.mySuperDemo.mvp.contract.LoginContract;
 import com.knight.jone.mySuperDemo.mvp.subscriber.CommonSubscriber;
 import com.knight.jone.mySuperDemo.mvp.transformer.CommonTransformer;
 
@@ -18,11 +19,12 @@ import com.knight.jone.mySuperDemo.mvp.transformer.CommonTransformer;
  * 主要做一些数据处理呀,网路请求呀
  */
 
-public class LoginModel extends BaseModel {
+public class LoginModel extends BaseModel implements
+        LoginContract.LoginModel {
     private boolean isLogin = false;
 
-    public boolean login(@NonNull String username, @NonNull String pwd, @NonNull final InfoHint
-            infoHint) {
+    public boolean login(@NonNull String username, @NonNull String pwd, @NonNull final
+    InfoHint infoHint) {
 
         if (infoHint == null)
             throw new RuntimeException("InfoHint不能为空");
