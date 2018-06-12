@@ -43,6 +43,17 @@ android {
         //    minifyEnabled false
         //    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         //}
+
+        def isRelease =true
+        sourceSets {
+            main {
+                if (isRelease) {
+                    manifest.srcFile 'src/main/release/AndroidManifest.xml'
+                } else {
+                    manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+                }
+            }
+        }
     }
 
     sourceSets {
