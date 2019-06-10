@@ -26,9 +26,6 @@ public class LoginModel extends BaseModel implements
     public boolean login(@NonNull String username, @NonNull String pwd, @NonNull final
     InfoHint infoHint) {
 
-        if (infoHint == null)
-            throw new RuntimeException("InfoHint不能为空");
-
         httpService.login(username, pwd)
                 .compose(new CommonTransformer<LoginBean>())
                 .subscribe(new CommonSubscriber<LoginBean>(MyApplication.getInstance()) {
@@ -48,13 +45,17 @@ public class LoginModel extends BaseModel implements
         return isLogin;
     }
 
+    @Override
+    public void login(String name, String pwd) {
+
+    }
+
 
     //通过接口产生信息回调
     public interface InfoHint {
         void successInfo(String str);
 
         void failInfo(String str);
-
     }
 
 }
