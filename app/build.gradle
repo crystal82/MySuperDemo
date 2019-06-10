@@ -12,12 +12,12 @@ static def getDate() {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.knight.jone.mySuperDemo"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -44,7 +44,7 @@ android {
         //    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         //}
 
-        def isRelease =true
+        def isRelease = true
         sourceSets {
             main {
                 if (isRelease) {
@@ -62,37 +62,59 @@ android {
         }
     }
 
+    //风格
+    flavorDimensions "default"
+
     // 多渠道定义
-    //productFlavors {
-    //    uascent {
-    //        manifestPlaceholders = [CHANNEL_VALUE: "uascent"]
+    productFlavors {
+        uascent {
+            manifestPlaceholders = [CHANNEL_VALUE: "uascent"]
+        }
+    }
+
+    // 根据渠道名称和release或debug类型，修改生成的apk名字  AS3.0   variant.outputs.all
+    applicationVariants.all {
+        buildConfigField("String", "VARIANT_NAME", "\"$it.name\"")
+    }
+
+    //applicationVariants.all {
+    //    def buildType = it.buildType.name
+    //    if (buildType == 'release') {
+    //        it.getPackageApplication().outputDirectory = new File(rootProject.rootDir, "releaseApk")
+    //        it.outputs.each { out ->
+    //            def outputFile = out.outputFile
+    //            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+    //                def fileName = appid + "${new Date().format("yyyy-MM-dd-HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))}Release${android.defaultConfig.versionName}.apk"
+    //                      out.outputFile = new File(outputFile.parentFile,fileName) //这里报错
+    //                out.apkData.outputFileName = fileName
+    //            }
+    //        }
     //    }
     //}
 
-    // 根据渠道名称和release或debug类型，修改生成的apk名字  AS3.0   variant.outputs.all
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def oldFile = output.outputFile
-            def newName = "${project.projectDir}/../outputs/apks/";
-            if (variant.buildType.name == 'release') {
-                //def productFlavorsName = variant.productFlavors[0].name; //多渠道定义名称
-                def releaseApkName = appName() + '-' + defaultConfig.versionName + '-sign-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
-                output.outputFile = new File(oldFile.parent, releaseApkName)
-                //outputFileName = new File(releaseApkName)
-            }
-            if (variant.buildType.name == 'debug') {
-                //def productFlavorsName = variant.productFlavors[0].name;
-                def releaseApkName = appName() + '-' + defaultConfig.versionName + '-debug-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
-                output.outputFile = new File(oldFile.parent, releaseApkName)
-            }
+    //applicationVariants.all { variant ->
+    //    variant.outputs.all { output ->
+    //        def oldFile = output.outputFile
+    //        def newName = "${project.projectDir}/../outputs/apks/";
+    //        if (variant.buildType.name == 'release') {
+    //            //def productFlavorsName = variant.productFlavors[0].name; //多渠道定义名称
+    //            def releaseApkName = appName() + '-' + defaultConfig.versionName + '-sign-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
+    //            output.outputFile = new File(oldFile.parent, releaseApkName)
+    //            //outputFileName = new File(releaseApkName)
+    //        }
+    //        if (variant.buildType.name == 'debug') {
+    //            //def productFlavorsName = variant.productFlavors[0].name;
+    //            def releaseApkName = appName() + '-' + defaultConfig.versionName + '-debug-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
+    //            output.outputFile = new File(oldFile.parent, releaseApkName)
+    //        }
 
-            if (variant.buildType.name == 'local') {
-                //def productFlavorsName = variant.productFlavors[0].name;
-                def releaseApkName = appName() + '-' + defaultConfig.versionName + '-local-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
-                output.outputFile = new File(oldFile.parent, releaseApkName)
-            }
-        }
-    }
+    //        if (variant.buildType.name == 'local') {
+    //            //def productFlavorsName = variant.productFlavors[0].name;
+    //            def releaseApkName = appName() + '-' + defaultConfig.versionName + '-local-' + defaultConfig.versionCode + '-' + getDate() + '.apk'
+    //            output.outputFile = new File(oldFile.parent, releaseApkName)
+    //        }
+    //    }
+    //}
 }
 
 repositories {
@@ -106,27 +128,26 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile files('lib/AutoPortTest2.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation files('lib/AutoPortTest2.jar')
 
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
-    compile 'com.android.volley:volley:1.1.0'
-    compile 'com.squareup.okio:okio:1.14.0'
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.jakewharton:disklrucache:2.0.2'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.squareup.okio:okio:2.2.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:disklrucache:2.0.2'
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    compile 'io.reactivex:rxjava:1.3.0'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.4.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    compile 'com.squareup.retrofit2:retrofit-converters:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'io.reactivex:rxjava:1.3.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit-converters:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 }
