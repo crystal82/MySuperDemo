@@ -1,22 +1,18 @@
 package com.knight.jone.mySuperDemo.io;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.knight.jone.mySuperDemo.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import okio.Buffer;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
-import okio.Sink;
-import okio.Timeout;
 
 public class OkIoTutorial extends AppCompatActivity {
 

@@ -3,8 +3,6 @@ package com.knight.jone.mySuperDemo.netRequest;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,7 +30,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.internal.cache.CacheInterceptor;
 
 public class OkhttpTutorial extends Activity {
     @BindView(R.id.textView)

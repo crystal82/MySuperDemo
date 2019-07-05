@@ -2,13 +2,12 @@ package com.knight.jone.mySuperDemo.netRequest;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 
 import com.knight.jone.mySuperDemo.MyApplication;
 import com.knight.jone.mySuperDemo.R;
-import com.knight.jone.mySuperDemo.netRequest.NetWorkUtils;
 import com.knight.jone.mySuperDemo.utils.Lg;
 
 import java.io.File;

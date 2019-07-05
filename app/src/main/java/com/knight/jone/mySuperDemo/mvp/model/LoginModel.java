@@ -1,6 +1,6 @@
 package com.knight.jone.mySuperDemo.mvp.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.knight.jone.mySuperDemo.MyApplication;
 import com.knight.jone.mySuperDemo.exception.ApiException;

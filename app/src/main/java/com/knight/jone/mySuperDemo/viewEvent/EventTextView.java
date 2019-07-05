@@ -3,11 +3,10 @@ package com.knight.jone.mySuperDemo.viewEvent;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.TextView;
 
 import com.knight.jone.mySuperDemo.utils.Lg;
 
-public class EventTextView extends android.support.v7.widget.AppCompatTextView {
+public class EventTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public EventTextView(Context context) {
         super(context);

@@ -6,11 +6,10 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.TouchDelegate;
 import android.view.View;
-import android.widget.Button;
 
 import com.knight.jone.mySuperDemo.R;
 
-public class LargeTouchableAreasButton extends android.support.v7.widget.AppCompatButton {
+public class LargeTouchableAreasButton extends androidx.appcompat.widget.AppCompatButton {
     private final int TOUCH_ADDITION = 0;
     private int mTouchAdditionBottom = 0;
     private int mTouchAdditionLeft = 0;

@@ -2,11 +2,10 @@ package com.knight.jone.mySuperDemo.viewEvent;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.knight.jone.mySuperDemo.utils.Lg;
 
