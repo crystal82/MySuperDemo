@@ -3,6 +3,8 @@ package com.knight.jone.mySuperDemo;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.knight.jone.mySuperDemo.dialogTutorial.DialogMainActivity;
 import com.knight.jone.mySuperDemo.simpleTest.CockroachActivity;
+import com.knight.jone.mySuperDemo.utils.Cockroach;
 import com.knight.jone.mySuperDemo.utils.Lg;
 
 import java.nio.ByteBuffer;
@@ -49,6 +52,44 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case 1:
                 startActivity(new Intent(this, DialogMainActivity.class));
                 break;
+            default:
+        }
+    }
+
+    public void s() throws Exception {
+        throw new Exception();
+    }
+
+    public void ss() {
+        throw new RuntimeException();
+    }
+
+    @OnClick({R.id.exception_main, R.id.exception_thread, R.id.install_cockroach, R.id.uninstall_cockroach})
+    public void onExceptionCLicked(View view) {
+        switch (view.getId()) {
+            case R.id.install_cockroach:
+                Cockroach.install(new Cockroach.ExceptionHandler() {
+                    @Override
+                    public void handlerException(final Thread thread, final Throwable throwable) {
+                        try {
+                            throwable.printStackTrace();
+                            Lg.d("Exception happen:" + thread + "   " + throwable.toString());
+                        } catch (Throwable e) {
+                            Lg.d("Throwable" + thread + "   " + throwable.toString());
+                        }
+                    }
+                });
+                break;
+            case R.id.uninstall_cockroach:
+                Cockroach.uninstall();
+                break;
+            case R.id.exception_thread:
+                new Thread(() -> {
+                    throw new RuntimeException("子线程异常");
+                }).start();
+                break;
+            case R.id.exception_main:
+                throw new RuntimeException("主线程异常");
             default:
         }
     }

@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="测试" />
+
     <Button
         android:id="@+id/test2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试2"/>
+        android:text="测试2" />
+
+    <Button
+        android:id="@+id/exception_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="主线奔溃" />
+
+    <Button
+        android:id="@+id/exception_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="子线程奔溃" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/install_cockroach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载异常捕获" />
+
+        <Button
+            android:id="@+id/uninstall_cockroach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卸载异常捕获" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/lv_title"
         android:layout_width="match_parent"

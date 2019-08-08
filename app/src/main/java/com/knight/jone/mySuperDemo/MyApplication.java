@@ -12,7 +12,7 @@ import com.knight.jone.mySuperDemo.utils.Lg;
  * 描述：
  */
 
-public class MyApplication  extends Application {
+public class MyApplication extends Application {
     public static MyApplication mInstance;
 
     @Override

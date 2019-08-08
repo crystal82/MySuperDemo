@@ -11,7 +11,7 @@ import com.knight.jone.mySuperDemo.BuildConfig;
  */
 public class Lg {
     private static boolean sDebug = BuildConfig.ENABLE_DEBUG;
-    private static String  sTag   = BuildConfig.LOG_TAG;
+    private static String sTag = BuildConfig.LOG_TAG;
 
     public static void init(boolean debug, String tag) {
         Lg.sDebug = debug;
@@ -30,16 +30,16 @@ public class Lg {
 
         StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
         Log.e(sTag, "(" + targetStackTraceElement.getFileName() + ":"
-                + targetStackTraceElement.getLineNumber() + ")" + "   " + msg);
+                + targetStackTraceElement.getLineNumber() + ") " + Thread.currentThread().getName() + "   " + msg);
     }
 
     public static void d(String tag, String msg) {
         if (!sDebug) return;
 
-        String            finalTag                = getFinalTag(tag);
+        String finalTag = getFinalTag(tag);
         StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
         Log.e(finalTag, "(" + targetStackTraceElement.getFileName() + ":"
-                + targetStackTraceElement.getLineNumber() + ")" + "   " + msg);
+                + targetStackTraceElement.getLineNumber() + ")" + Thread.currentThread().getName() + "   " + msg);
     }
 
     public static void e(String msg) {
@@ -47,34 +47,34 @@ public class Lg {
 
         StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
         Log.e(sTag, "(" + targetStackTraceElement.getFileName() + ":"
-                + targetStackTraceElement.getLineNumber() + ")" + "   " + msg);
+                + targetStackTraceElement.getLineNumber() + ")" + Thread.currentThread().getName() + "   " + msg);
     }
 
     public static void e(String tag, String msg) {
         if (!sDebug) return;
 
-        String            finalTag                = getFinalTag(tag);
+        String finalTag = getFinalTag(tag);
         StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
         Log.e(finalTag, "(" + targetStackTraceElement.getFileName() + ":"
-                + targetStackTraceElement.getLineNumber() + ")" + "   " + msg);
+                + targetStackTraceElement.getLineNumber() + ")" + Thread.currentThread().getName() + "   " + msg);
     }
 
     public static void i(String tag, String msg) {
         if (!sDebug) return;
 
-        String            finalTag                = getFinalTag(tag);
+        String finalTag = getFinalTag(tag);
         StackTraceElement targetStackTraceElement = getTargetStackTraceElement();
         Log.e(finalTag, "(" + targetStackTraceElement.getFileName() + ":"
-                + targetStackTraceElement.getLineNumber() + ")" + "   " + msg);
+                + targetStackTraceElement.getLineNumber() + ")" + Thread.currentThread().getName() + "   " + msg);
     }
 
 
     //得到上一个栈帧
     private static StackTraceElement getTargetStackTraceElement() {
         // find the target invoked method
-        StackTraceElement   targetStackTrace = null;
-        boolean             shouldTrace      = false;
-        StackTraceElement[] stackTrace       = Thread.currentThread().getStackTrace();
+        StackTraceElement targetStackTrace = null;
+        boolean shouldTrace = false;
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (StackTraceElement stackTraceElement : stackTrace) {
             boolean isLogMethod = stackTraceElement.getClassName().equals(Lg.class.getName());
             if (shouldTrace && !isLogMethod) {

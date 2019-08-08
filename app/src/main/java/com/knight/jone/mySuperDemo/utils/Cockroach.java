@@ -30,13 +30,14 @@ public final class Cockroach {
      *
      * @param exceptionHandler
      */
-    public static synchronized void install(ExceptionHandler exceptionHandler) {
+    public static synchronized void  install(ExceptionHandler exceptionHandler) {
         if (sInstalled) {
             return;
         }
         sInstalled = true;
         sExceptionHandler = exceptionHandler;
 
+        //捕获主线出现的异常避免App崩溃
         //通过Handler.post方法启动Looper，避免主线程卡死
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
