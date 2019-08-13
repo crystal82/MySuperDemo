@@ -1,19 +1,32 @@
 package com.knight.jone.mySuperDemo;
 
+import android.Manifest;
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
+import android.app.usage.NetworkStats;
+import android.app.usage.NetworkStatsManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.RemoteException;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.knight.jone.mySuperDemo.dialogTutorial.DialogMainActivity;
+import com.knight.jone.mySuperDemo.net.NetState;
 import com.knight.jone.mySuperDemo.simpleTest.CockroachActivity;
 import com.knight.jone.mySuperDemo.utils.Cockroach;
 import com.knight.jone.mySuperDemo.utils.Lg;
@@ -41,6 +54,44 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ListView lv_title = (ListView) findViewById(R.id.lv_title);
         lv_title.setAdapter(new ArrayAdapter<String>(this, R.layout.item_main_title, titles));
         lv_title.setOnItemClickListener(this);
+
+        System.out.println("ThreadGroup:" + Thread.currentThread().getThreadGroup());
+
+        requestPermissions(new String[]{
+                Manifest.permission.PACKAGE_USAGE_STATS,
+                Manifest.permission.READ_PHONE_STATE
+        }, 1);
+
+        boolean accessGranted = isAccessGranted();
+        Lg.d("accessGranted:" + accessGranted);
+    }
+
+
+    private boolean isAccessGranted() {
+        try {
+            PackageManager packageManager = getPackageManager();
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), 0);
+            AppOpsManager appOpsManager = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
+            int mode = 0;
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
+                mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                        applicationInfo.uid, applicationInfo.packageName);
+            }
+            return (mode == AppOpsManager.MODE_ALLOWED);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Lg.d("onRequestPermissionsResult:" + requestCode + "  " + permissions.length);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("ThreadGroup:" + Thread.currentThread().getThreadGroup());
     }
 
     @Override
@@ -56,12 +107,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    public void s() throws Exception {
-        throw new Exception();
-    }
+    @OnClick({R.id.net_flow_monitoring, R.id.usage_access_settings})
+    public void onFlowClick(View view) {
+        if (view.getId() == R.id.usage_access_settings) {
+            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+            startActivity(intent);
+            return;
+        }
 
-    public void ss() {
-        throw new RuntimeException();
+        NetState instance = NetState.getInstance();
+        //instance.autoGetDownLoadSpeed(this);
+        NetState.getUidByPackageName(this, getApplication().getPackageName());
+        Lg.d(getApplicationInfo().uid + "");
+
+        NetworkStatsManager networkStatsManager = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            networkStatsManager = (NetworkStatsManager) getSystemService(NETWORK_STATS_SERVICE);
+            NetworkStats.Bucket bucket = null;
+            try {
+                bucket = networkStatsManager.querySummaryForDevice(ConnectivityManager.TYPE_WIFI, "", 0, System.currentTimeMillis());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            Log.i("Info", "autoGetDownLoadSpeed Total: " + (bucket.getRxBytes() + bucket.getTxBytes()));
+        }
     }
 
     @OnClick({R.id.exception_main, R.id.exception_thread, R.id.install_cockroach, R.id.uninstall_cockroach})

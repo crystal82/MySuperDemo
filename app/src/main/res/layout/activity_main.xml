@@ -16,17 +16,23 @@
         android:layout_height="wrap_content"
         android:text="测试2" />
 
-    <Button
-        android:id="@+id/exception_main"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="主线奔溃" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/exception_thread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="子线程奔溃" />
+        <Button
+            android:id="@+id/exception_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主线奔溃" />
+
+        <Button
+            android:id="@+id/exception_thread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="子线程奔溃" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,6 +47,30 @@
 
         <Button
             android:id="@+id/uninstall_cockroach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卸载异常捕获" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/net_flow_monitoring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始流量监控" />
+
+        <Button
+            android:id="@+id/usage_access_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户权限" />
+
+        <TextView
+            android:id="@+id/flow_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="卸载异常捕获" />
