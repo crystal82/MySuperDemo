@@ -10,6 +10,8 @@
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
 
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"

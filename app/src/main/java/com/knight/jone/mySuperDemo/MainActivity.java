@@ -11,8 +11,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.util.Log;
