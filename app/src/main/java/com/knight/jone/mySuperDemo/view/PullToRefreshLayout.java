@@ -339,10 +339,10 @@ public class PullToRefreshLayout extends RelativeLayout implements OnTouchListen
     }
 
     private void initView() {
-        //    pullView = headView.findViewById(R.id.pull_icon);
-        //    stateTextView = (TextView) headView.findViewById(R.id.state_tv);
-        //    refreshingView = headView.findViewById(R.id.refreshing_icon);
-        //    stateImageView = headView.findViewById(R.id.state_iv);
+        pullView = headView.findViewById(R.id.pull_icon);
+        stateTextView = (TextView) headView.findViewById(R.id.state_tv);
+        refreshingView = headView.findViewById(R.id.refreshing_icon);
+        stateImageView = headView.findViewById(R.id.state_iv);
     }
 
     @Override
