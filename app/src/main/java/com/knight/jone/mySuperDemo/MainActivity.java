@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.knight.jone.mySuperDemo.dialogTutorial.DialogMainActivity;
 import com.knight.jone.mySuperDemo.net.NetState;
+import com.knight.jone.mySuperDemo.process.ProcessOneActivity;
 import com.knight.jone.mySuperDemo.simpleTest.CockroachActivity;
 import com.knight.jone.mySuperDemo.utils.Cockroach;
 import com.knight.jone.mySuperDemo.utils.Lg;
@@ -103,6 +104,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 break;
             default:
         }
+    }
+
+    @OnClick(R.id.process)
+    public void onProcess() {
+        Intent intent = new Intent(this, ProcessOneActivity.class);
+        startActivity(intent);
     }
 
     @OnClick({R.id.net_flow_monitoring, R.id.usage_access_settings})
