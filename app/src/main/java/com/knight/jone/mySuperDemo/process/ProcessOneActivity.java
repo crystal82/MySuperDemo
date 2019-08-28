@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.knight.jone.mySuperDemo.R;
+import com.knight.jone.mySuperDemo.utils.Lg;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,15 @@ public class ProcessOneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_process_one);
         ButterKnife.bind(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Lg.d("ProcessOneActivity TestBean.num:" + TestBean.num);
+        TestBean.num = 100;
     }
 
     @OnClick({R.id.process_one, R.id.process_two})
