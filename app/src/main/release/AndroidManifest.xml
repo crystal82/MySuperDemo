@@ -9,7 +9,6 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <application
@@ -20,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".utils.exif.ExifReaderActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask">
@@ -32,14 +32,14 @@
         <activity
             android:name=".dialogTutorial.DialogActivity"
             android:theme="@style/MyDialog" />
-        <activity android:name=".dialogTutorial.DialogMainActivity"></activity>
-        <activity android:name=".simpleTest.CockroachActivity"></activity>
-        <activity android:name=".netRequest.VolleyTutorial"></activity>
-        <activity android:name=".netRequest.RetrofitTutorial"></activity>
-        <activity android:name=".hotUpdata.ClassLoaderActivity"></activity>
-        <activity android:name=".netRequest.OkhttpCacheTest"></activity>
+        <activity android:name=".dialogTutorial.DialogMainActivity" />
+        <activity android:name=".simpleTest.CockroachActivity" />
+        <activity android:name=".netRequest.VolleyTutorial" />
+        <activity android:name=".netRequest.RetrofitTutorial" />
+        <activity android:name=".hotUpdata.ClassLoaderActivity" />
+        <activity android:name=".netRequest.OkhttpCacheTest" />
         <activity android:name=".mvp.LoginActivity" />
-        <activity android:name=".mvpMy.DoubanActivity"></activity>
+        <activity android:name=".mvpMy.DoubanActivity" />
     </application>
 
 </manifest>
