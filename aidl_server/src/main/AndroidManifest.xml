@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hwq.ruminate.aidl_service">
+
+    <application>
+        <activity android:name=".aidl.MainActivity" />
+
+        <service
+            android:name=".AidlService"
+            android:enabled="true"
+            android:exported="true"></service>
+    </application>
+
+</manifest>
