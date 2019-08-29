@@ -8,6 +8,12 @@ public class Book implements Parcelable {
     public String bookName;
     public long readTime;
 
+    public Book(int bookId, String bookName, long readTime) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.readTime = readTime;
+    }
+
     protected Book(Parcel in) {
         bookId = in.readInt();
         bookName = in.readString();

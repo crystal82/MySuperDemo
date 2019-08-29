@@ -25,14 +25,21 @@
         android:layout_height="wrap_content"
         android:text="解除监听" />
 
-    <EditText
-        android:id="@+id/et_book_id"
-        android:hint="输入书ID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/read_listener"
+        android:id="@+id/book_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取书单" />
+
+    <Button
+        android:id="@+id/read_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="读书" />
+
+    <EditText
+        android:id="@+id/et_book_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入书ID" />
 </LinearLayout>

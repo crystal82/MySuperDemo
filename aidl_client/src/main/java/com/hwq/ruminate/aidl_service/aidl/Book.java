@@ -8,6 +8,15 @@ public class Book implements Parcelable {
     public String bookName;
     public long readTime;
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", readTime=" + readTime +
+                '}';
+    }
+
     protected Book(Parcel in) {
         bookId = in.readInt();
         bookName = in.readString();

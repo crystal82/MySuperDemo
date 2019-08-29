@@ -15,14 +15,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.hwq.ruminate.aidl_service.aidl.Book;
 import com.hwq.ruminate.aidl_service.aidl.IBookManager;
 import com.hwq.ruminate.aidl_service.aidl.IReadBookListener;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     private Button bind_service;
     private Button register_listener;
     private Button unregister_listener;
+    private Button book_list;
+    private Button read_book;
     private EditText et_book_id;
     private IBookManager iBookManager;
 
@@ -35,9 +40,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         register_listener = findViewById(R.id.register_listener);
         unregister_listener = findViewById(R.id.unregister_listener);
         et_book_id = findViewById(R.id.et_book_id);
+        book_list = findViewById(R.id.book_list);
+        read_book = findViewById(R.id.read_book);
         bind_service.setOnClickListener(this);
         register_listener.setOnClickListener(this);
         unregister_listener.setOnClickListener(this);
+        book_list.setOnClickListener(this);
+        read_book.setOnClickListener(this);
     }
 
     ServiceConnection serviceConnection = new ServiceConnection() {
@@ -56,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void bindService() {
         Intent intent = new Intent();
-        intent.setClassName("com.hwq.ruminate.aidl_server", "com.hwq.ruminate.aidl_server.AidlService");
+        intent.setClassName("com.hwq.ruminate.aidl_service", "com.hwq.ruminate.aidl_service.AidlService");
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -80,13 +89,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
                 break;
-            case R.id.et_book_id:
+            case R.id.read_book:
                 String s = et_book_id.getText().toString();
-                if(TextUtils.isEmpty(s)){
+                if (TextUtils.isEmpty(s)) {
                     return;
                 }
                 try {
                     iBookManager.readBook(Integer.parseInt(s));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.book_list:
+                try {
+                    List<Book> bookList = iBookManager.getBookList();
+                    System.out.println("bookList:" + bookList.toString());
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -97,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     IReadBookListener iReadBookListener = new IReadBookListener.Stub() {
         @Override
-        public void onReadBookOver(int bookId) throws RemoteException {
-
+        public void onReadBookOver(Book book) throws RemoteException {
+            Log.d(TAG, "onReadBookOver:" + book);
         }
     };
 }
