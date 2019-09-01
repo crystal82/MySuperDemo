@@ -22,8 +22,8 @@ import com.hwq.ruminate.ipc_service.aidl.IReadBookListener;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "MainActivity";
+public class AidlActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "AidlActivity";
     private Button bind_service;
     private Button register_listener;
     private Button unregister_listener;

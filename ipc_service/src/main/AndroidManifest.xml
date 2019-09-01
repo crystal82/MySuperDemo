@@ -14,6 +14,10 @@
             android:name="com.hwq.ruminate.ipc_service.AidlService"
             android:enabled="true"
             android:exported="true"/>
+        <service
+            android:name="com.hwq.ruminate.ipc_service.MessengerService"
+            android:enabled="true"
+            android:exported="true"/>
 
         <activity
             android:name="com.hwq.ruminate.ipc_service.MainActivity"
