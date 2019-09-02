@@ -74,7 +74,8 @@ public class AidlService extends Service {
             int callingPid = getCallingPid();
             int callingUid = getCallingUid();
             int check = checkCallingPermission("com.ipc.permission.ACCESS_BOOK_SERVICE");
-            Log.d(TAG, "onTransact callingPid:" + callingPid + "  callingUid:" + callingUid + "  check:" + check);
+            int check2 = checkCallingPermission("com.ipc.permission.ACCESS_BOOK_SERVICE222");
+            Log.d(TAG, "onTransact callingPid:" + callingPid + "  callingUid:" + callingUid + "  check:" + check + "  check2:" + check2);
 
             String[] packages = getPackageManager().getPackagesForUid(callingUid);
             if (packages != null && packages.length > 0) {
