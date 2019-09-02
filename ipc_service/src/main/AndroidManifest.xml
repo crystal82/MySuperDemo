@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hwq.ruminate.ipc_service">
 
+    <permission
+        android:name="com.ipc.permission.ACCESS_BOOK_SERVICE"
+        android:protectionLevel="normal" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,15 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <service
-            android:name="com.hwq.ruminate.ipc_service.AidlService"
-            android:enabled="true"
-            android:exported="true"/>
-        <service
-            android:name="com.hwq.ruminate.ipc_service.MessengerService"
-            android:enabled="true"
-            android:exported="true"/>
 
         <activity
             android:name="com.hwq.ruminate.ipc_service.MainActivity"
@@ -28,6 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.hwq.ruminate.ipc_service.MessengerService"
+            android:enabled="true"
+            android:exported="true" />
+
+
+        <!--设置该参数后，仅申明权限后才能成功访问-->
+        <!--android:permission="com.ipc.permission.ACCESS_BOOK_SERVICE"-->
+        <service
+            android:name="com.hwq.ruminate.ipc_service.AidlService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

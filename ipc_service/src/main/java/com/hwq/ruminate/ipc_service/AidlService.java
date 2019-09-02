@@ -2,9 +2,13 @@ package com.hwq.ruminate.ipc_service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Binder;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.util.Log;
 
 import com.hwq.ruminate.ipc_service.aidl.Book;
@@ -12,6 +16,7 @@ import com.hwq.ruminate.ipc_service.aidl.IBookManager;
 import com.hwq.ruminate.ipc_service.aidl.IReadBookListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,10 +39,51 @@ public class AidlService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+        //int callingPid = Binder.getCallingPid();
+        //int callingUid = Binder.getCallingUid();
+        //Log.d(TAG, "callingPid:" + callingPid + "  callingUid:" + callingUid);
+        //Log.d(TAG, "Pid:" + android.os.Process.myPid() + "  Uid:" + android.os.Process.myUid());
+        //PackageManager packageManager = AidlService.this.getPackageManager();
+        //String[] packages = getPackageManager().getPackagesForUid(callingUid);
+        //int result = packageManager.checkPermission("com.ipc.permission.ACCESS_BOOK_SERVICE", packages[0]);
+        //Log.d(TAG, "onBind: result:" + result + "   package:" + Arrays.toString(packages));
+        //可以在此处进行权限校验，校验不通过直接返回null
+        //if (!checkPermission()) {
+        //    return null;
+        //}
+
+        int check = checkCallingOrSelfPermission("com.ipc.permission.ACCESS_BOOK_SERVICE");
+        Log.d(TAG, "onBind check:" + check);
         return iBookManager;
     }
 
+    private boolean checkPermission() {
+        int check = checkCallingPermission("com.ipc.permission.ACCESS_BOOK_SERVICE");
+        int check2 = checkCallingPermission("com.ipc.permission.TEST");
+        Log.d(TAG, "checkPermission:" + check + "   check2" + check2);
+
+        return check != PackageManager.PERMISSION_DENIED;
+    }
+
     private IBookManager.Stub iBookManager = new IBookManager.Stub() {
+
+        @Override
+        public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+            //执行方法时候会走到这里，可以添加校验条件。
+            //权限校验不通过返回false，表示失败
+            int callingPid = getCallingPid();
+            int callingUid = getCallingUid();
+            int check = checkCallingPermission("com.ipc.permission.ACCESS_BOOK_SERVICE");
+            Log.d(TAG, "onTransact callingPid:" + callingPid + "  callingUid:" + callingUid + "  check:" + check);
+
+            String[] packages = getPackageManager().getPackagesForUid(callingUid);
+            if (packages != null && packages.length > 0) {
+                Log.d(TAG, "onTransact: " + Arrays.toString(packages));
+            }
+
+
+            return super.onTransact(code, data, reply, flags);
+        }
 
         @Override
         public long readBook(int id) throws RemoteException {

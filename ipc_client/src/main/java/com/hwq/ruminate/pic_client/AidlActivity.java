@@ -1,11 +1,13 @@
 package com.hwq.ruminate.pic_client;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hwq.ruminate.ipc_client.R;
 import com.hwq.ruminate.ipc_service.aidl.Book;
@@ -50,11 +53,20 @@ public class AidlActivity extends AppCompatActivity implements View.OnClickListe
         read_book.setOnClickListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unbindService(serviceConnection);
+    }
+
     ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             Log.d(TAG, "onServiceConnected");
-
+            if(iBinder == null){
+                Toast.makeText(AidlActivity.this, "权限不通过", Toast.LENGTH_SHORT).show();
+            }
             iBookManager = IBookManager.Stub.asInterface(iBinder);
         }
 
@@ -74,6 +86,10 @@ public class AidlActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bind_service:
+                Log.d(TAG, "----pid=" + android.os.Process.myPid());
+                Log.d(TAG, "----tid=" + android.os.Process.myTid());
+                Log.d(TAG, "----uid=" + android.os.Process.myUid());
+                Log.d(TAG, "----http.agent=" + System.getProperty("http.agent"));
                 bindService();
                 break;
             case R.id.register_listener:
