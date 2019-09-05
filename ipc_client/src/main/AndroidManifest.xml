@@ -21,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:process=":provider"
+            android:authorities="com.hwq.ipc.provider"
+            android:name="com.hwq.ruminate.PicContentProvider"/>
     </application>
 
 </manifest>
