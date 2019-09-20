@@ -1,12 +1,16 @@
 package com.knight.jone.mySuperDemo;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
 import com.knight.jone.mySuperDemo.utils.Cockroach;
 import com.knight.jone.mySuperDemo.utils.Lg;
+
+import java.util.ArrayList;
 
 /**
  * 作者：HWQ on 2017/11/29 15:33
@@ -15,6 +19,7 @@ import com.knight.jone.mySuperDemo.utils.Lg;
 
 public class MyApplication extends Application {
     public static MyApplication mInstance;
+    public ArrayList<Activity> activities = new ArrayList<>();
 
     @Override
     public void onCreate() {

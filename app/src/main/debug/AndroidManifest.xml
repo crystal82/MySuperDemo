@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".netRequest.OkhttpTutorial"
+            android:name=".memory.MemoryActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".memory.SecondActivity"/>
         <activity
             android:name=".dialogTutorial.DialogActivity"
             android:theme="@style/MyDialog"/>

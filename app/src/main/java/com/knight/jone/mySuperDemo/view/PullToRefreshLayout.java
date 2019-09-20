@@ -220,7 +220,7 @@ public class PullToRefreshLayout extends RelativeLayout implements OnTouchListen
         }
     }
 
-    /*
+    /**
      * （非 Javadoc）由父控件决定是否分发事件，防止事件冲突
      *
      * @see android.view.ViewGroup#dispatchTouchEvent(android.view.MotionEvent)

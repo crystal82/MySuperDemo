@@ -40,7 +40,7 @@ public class MessengerService extends Service implements Handler.Callback {
             //读取消息
             Log.d(TAG, "Client message is:" + message.getData().get("messenger_client_info"));
 
-            //获取客户端绑定的回复Message
+            //获取客户端绑定的回复Message，需要客户端执行"message.replyTo"设置独立的回复message，否则会有空指针异常。
             Messenger replyTo = message.replyTo;
 
             //准备回复数据

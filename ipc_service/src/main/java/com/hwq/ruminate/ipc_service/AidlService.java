@@ -3,12 +3,10 @@ package com.hwq.ruminate.ipc_service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
-import android.os.UserHandle;
 import android.util.Log;
 
 import com.hwq.ruminate.ipc_service.aidl.Book;
@@ -25,7 +23,11 @@ import java.util.List;
 public class AidlService extends Service {
     private static final String TAG = "AidlService";
 
-    //声明
+    /**
+     * 直接使用ArrayList存在隐患
+     * AIDL中传递的对象非原来的对象，直接按对象进行保存/移除，无法真正解除绑定。
+     * RemoteCallbackList底层使用接口的bind对象来保存，在aidl中binder对象是统一的。
+     */
     private RemoteCallbackList<IReadBookListener> callbackList;
     private ArrayList<Book> bookList;
 
