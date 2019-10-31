@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.knight.jone.mySuperDemo.MyApplication;
 import com.knight.jone.mySuperDemo.R;
+import com.knight.jone.mySuperDemo.rxJava.RxJava1Test;
 
 /**
  * 内容相关Activity
@@ -28,6 +29,13 @@ public class MemoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
         ivIcon = findViewById(R.id.iv_icon);
+
+        RxJava1Test.test();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void simulateLeakMemory(View view) {

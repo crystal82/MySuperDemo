@@ -49,8 +49,8 @@ android {
         def isRelease = true
         sourceSets {
             main {
-       //        jni.srcDirs = []
-       //        jniLibs.srcDirs = ['src/main/jniLibs']
+                //        jni.srcDirs = []
+                //        jniLibs.srcDirs = ['src/main/jniLibs']
 
                 if (isRelease) {
                     manifest.srcFile 'src/main/release/AndroidManifest.xml'
@@ -125,11 +125,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-   //externalNativeBuild {
-   //    cmake {
-   //        path file('CMakeLists.txt')
-   //    }
-   //}
+    //externalNativeBuild {
+    //    cmake {
+    //        path file('CMakeLists.txt')
+    //    }
+    //}
 }
 
 repositories {
@@ -151,7 +151,6 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.jakewharton:butterknife:10.1.0'
@@ -168,4 +167,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.android.material:material:1.0.0'
+
+    implementation files('lib/volley1.0.9.jar')
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.squareup:otto:1.3.8'
+    implementation 'io.reactivex:rxjava:1.3.8'
+    implementation 'io.reactivex:rxandroid:1.2.1'
 }
