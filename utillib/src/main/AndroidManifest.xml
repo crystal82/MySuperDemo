@@ -1,0 +1,38 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hwq.ruminate.utillib"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".SaveBitmapActivity" />
+        <activity android:name=".SaveJsonObjectActivity" />
+        <activity android:name=".SaveObjectActivity" />
+        <activity android:name=".SaveStringActivity" />
+        <activity android:name=".SaveMediaActivity" />
+        <activity
+            android:name=".SaveDrawableActivity"
+            android:label="@string/title_activity_save_drawable"/>
+        <activity
+            android:name=".SaveJsonArrayActivity"
+            android:label="@string/title_activity_save_json_array"/>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-sdk android:targetSdkVersion="16" />
+
+</manifest>

@@ -1,1 +1,1 @@
-include ':app', ':blelibrary', ':exifReader', ':ipc_client', ':ipc_service'
+include ':app', ':blelibrary', ':exifReader', ':ipc_client', ':ipc_service', ':util_lib', ':utillib'
