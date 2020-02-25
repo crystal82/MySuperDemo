@@ -30,9 +30,9 @@
         </activity>
         <activity android:name=".simpleTest.CockroachActivity">
         </activity>
-        <activity android:name=".net.VolleyTutorial">
+        <activity android:name=".net.tutorial.VolleyTutorial">
         </activity>
-        <activity android:name=".net.RetrofitTutorial">
+        <activity android:name=".net.tutorial.RetrofitTutorial">
         </activity>
         <activity android:name=".hotUpdata.ClassLoaderActivity">
         </activity>

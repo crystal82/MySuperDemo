@@ -41,8 +41,8 @@
             android:theme="@style/MyDialog" />
         <activity android:name=".dialogTutorial.DialogMainActivity" />
         <activity android:name=".simpleTest.CockroachActivity" />
-        <activity android:name=".net.VolleyTutorial" />
-        <activity android:name=".net.RetrofitTutorial" />
+        <activity android:name=".net.tutorial.VolleyTutorial" />
+        <activity android:name=".net.tutorial.RetrofitTutorial" />
         <activity android:name=".hotUpdata.ClassLoaderActivity" />
         <activity android:name=".net.OkhttpCacheTest" />
         <activity android:name=".mvp.LoginActivity" />
