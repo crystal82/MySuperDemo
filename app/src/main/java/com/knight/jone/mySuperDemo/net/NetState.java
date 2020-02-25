@@ -6,12 +6,8 @@ import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
 import android.os.Build;
-import android.os.RemoteException;
 import android.util.Log;
-
-import com.knight.jone.mySuperDemo.MainActivity;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

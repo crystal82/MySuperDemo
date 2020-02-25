@@ -3,7 +3,6 @@ package com.knight.jone.mySuperDemo.net;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageRequest;

@@ -41,10 +41,10 @@
             android:theme="@style/MyDialog" />
         <activity android:name=".dialogTutorial.DialogMainActivity" />
         <activity android:name=".simpleTest.CockroachActivity" />
-        <activity android:name=".netRequest.VolleyTutorial" />
-        <activity android:name=".netRequest.RetrofitTutorial" />
+        <activity android:name=".net.VolleyTutorial" />
+        <activity android:name=".net.RetrofitTutorial" />
         <activity android:name=".hotUpdata.ClassLoaderActivity" />
-        <activity android:name=".netRequest.OkhttpCacheTest" />
+        <activity android:name=".net.OkhttpCacheTest" />
         <activity android:name=".mvp.LoginActivity" />
         <activity android:name=".mvpMy.DoubanActivity" />
     </application>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.knight.jone.mySuperDemo.netRequest.OkhttpTutorial">
+    tools:context="com.knight.jone.mySuperDemo.net.OkhttpTutorial">
 
     <Button
         android:id="@+id/getButton"

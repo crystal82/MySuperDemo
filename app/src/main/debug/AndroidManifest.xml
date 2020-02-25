@@ -30,13 +30,13 @@
         </activity>
         <activity android:name=".simpleTest.CockroachActivity">
         </activity>
-        <activity android:name=".netRequest.VolleyTutorial">
+        <activity android:name=".net.VolleyTutorial">
         </activity>
-        <activity android:name=".netRequest.RetrofitTutorial">
+        <activity android:name=".net.RetrofitTutorial">
         </activity>
         <activity android:name=".hotUpdata.ClassLoaderActivity">
         </activity>
-        <activity android:name=".netRequest.OkhttpCacheTest">
+        <activity android:name=".net.OkhttpCacheTest">
         </activity>
         <activity android:name=".mvp.LoginActivity"/>
         <activity android:name=".mvpMy.DoubanActivity">
