@@ -2,10 +2,13 @@ package com.knight.jone.mySuperDemo.net.okhttp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.knight.jone.mySuperDemo.net.NetWorkUtils;
 
@@ -31,9 +34,10 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * 1. 类的用途 封装OkHttp3的工具类 用单例设计模式
- * 2. @author forever
- * 3. @date 2017/9/6 09:19
+ * 类的用途 封装OkHttp3的工具类 用单例设计模式
+ * <p>
+ * 参考：
+ * https://www.niwoxuexi.com/blog/android00/article/558.html
  */
 
 public class OkHttp3Utils {
@@ -76,8 +80,8 @@ public class OkHttp3Utils {
              */
             //  File sdcache = getExternalCacheDir();
             //缓存目录
-            File sdcache   = new File(Environment.getExternalStorageDirectory(), "cache");
-            int  cacheSize = 10 * 1024 * 1024;
+            File sdcache = new File(Environment.getExternalStorageDirectory(), "cache");
+            int cacheSize = 10 * 1024 * 1024;
             //OkHttp3拦截器
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor
                     .Logger() {
@@ -117,7 +121,7 @@ public class OkHttp3Utils {
      * 参数2 回调Callback
      */
 
-    public static void doGet(String url, Context context,Callback callback) {
+    public static void doGet(String url, Context context, Callback callback) {
 
         //创建OkHttpClient请求对象
         OkHttpClient okHttpClient = getOkHttpClient(context);
@@ -127,18 +131,51 @@ public class OkHttp3Utils {
         Call call = okHttpClient.newCall(request);
         //执行异步请求
         call.enqueue(callback);
+    }
 
+    public static Response doSyncGet(String url, Context context) {
+        OkHttpClient okHttpClient = getOkHttpClient(context);
+        Request request = new Request.Builder().url(url).build();
+        okHttpClient.newCall(request);
+        Call call = okHttpClient.newCall(request);
 
+        try {
+            return call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**
      * post请求
-     * 参数1 url
-     * 参数2 回调Callback
+     *
+     * "application/json; charset=utf-8"
+     * "text/plain;charset=utf-8"
+     *
+     * @param url             url
+     * @param requestBodyInfo body参数
+     * @param context         拦截器使用context
+     * @param callback        异步请求回调
      */
+    public static void doPost(String url, String requestBodyInfo, Context context, Callback callback) {
+        //创建OkHttpClient请求对象
+        OkHttpClient okHttpClient = getOkHttpClient(context);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"), requestBodyInfo);
 
-    public static void doPost(String url, Map<String, String> params,Context context, Callback callback) {
+        //创建Request
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
 
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(callback);
+
+    }
+
+    public static void doPost(String url, Map<String, String> params, Context context, Callback callback) {
         //创建OkHttpClient请求对象
         OkHttpClient okHttpClient = getOkHttpClient(context);
         //3.x版本post请求换成FormBody 封装键值对参数
@@ -149,14 +186,16 @@ public class OkHttp3Utils {
             builder.add(key, params.get(key));
 
         }
-
+        FormBody formBody = builder.build();
 
         //创建Request
-        Request request = new Request.Builder().url(url).post(builder.build()).build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
 
         Call call = okHttpClient.newCall(request);
         call.enqueue(callback);
-
     }
 
     /**
@@ -164,15 +203,15 @@ public class OkHttp3Utils {
      * 参数1 url
      * 参数2 回调Callback
      */
-    public static void uploadPic(String url, Context context,File file, String fileName) {
+    public static void uploadPic(String url, Context context, File file, String fileName) {
         //创建OkHttpClient请求对象
         OkHttpClient okHttpClient = getOkHttpClient(context);
         //创建RequestBody 封装file参数
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
         //创建RequestBody 设置类型等
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file",
-                                                                                                          fileName,
-                                                                                                          fileBody)
+                fileName,
+                fileBody)
                 .build();
         //创建Request
         Request request = new Request.Builder().url(url).post(requestBody).build();
@@ -200,10 +239,10 @@ public class OkHttp3Utils {
      * 参数二：请求的JSON
      * 参数三：请求回调
      */
-    public static void doPostJson(String url, String jsonParams,Context context, Callback callback) {
+    public static void doPostJson(String url, String jsonParams, Context context, Callback callback) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonParams);
-        Request     request     = new Request.Builder().url(url).post(requestBody).build();
-        Call        call        = getOkHttpClient(context).newCall(request);
+        Request request = new Request.Builder().url(url).post(requestBody).build();
+        Call call = getOkHttpClient(context).newCall(request);
         call.enqueue(callback);
 
 
@@ -217,7 +256,7 @@ public class OkHttp3Utils {
      */
     public static void download(final Context context, final String url, final String saveDir) {
         Request request = new Request.Builder().url(url).build();
-        Call    call    = getOkHttpClient(context).newCall(request);
+        Call call = getOkHttpClient(context).newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -227,9 +266,9 @@ public class OkHttp3Utils {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
 
-                InputStream      is  = null;
-                byte[]           buf = new byte[2048];
-                int              len = 0;
+                InputStream is = null;
+                byte[] buf = new byte[2048];
+                int len = 0;
                 FileOutputStream fos = null;
                 try {
                     is = response.body().byteStream();
@@ -296,6 +335,7 @@ public class OkHttp3Utils {
      */
     private static class CacheInterceptor implements Interceptor {
         private Context mContext;
+
         public CacheInterceptor(Context context) {
             mContext = context;
         }
@@ -305,8 +345,8 @@ public class OkHttp3Utils {
             // 有网络时 设置缓存超时时间1个小时
             int maxAge = 60 * 60;
             // 无网络时，设置超时为1天
-            int     maxStale = 60 * 60 * 24;
-            Request request  = chain.request();
+            int maxStale = 60 * 60 * 24;
+            Request request = chain.request();
             if (NetWorkUtils.isNetWorkAvailable(mContext)) {
                 //有网络时只从网络获取
                 request = request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build();
@@ -331,5 +371,48 @@ public class OkHttp3Utils {
             }
             return response;
         }
+    }
+
+    /**
+     * 下载图片
+     */
+    public void httpDownloadImage(Context context){
+       //OkHttpClient client = new OkHttpClient();
+       //final Request request = new Request
+       //        .Builder()
+       //        .get()
+       //        .url("http://avatar.csdn.net/B/0/1/1_new_one_object.jpg")
+       //        .build();
+       //Call call = client.newCall(request);
+       //call.enqueue(new Callback() {
+       //    @Override
+       //    public void onFailure(Call call, IOException e) {
+       //        Toast.makeText(context,  "下载图片失败", Toast.LENGTH_SHORT).show();
+       //    }
+
+       //    @Override
+       //    public void onResponse(Call call, Response response) throws IOException {
+       //        InputStream inputStream = response.body().byteStream();
+       //        //将图片显示到ImageView中
+       //        final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+       //        getHandler().post(new Runnable() {
+       //            @Override
+       //            public void run() {
+       //                iv_result.setImageBitmap(bitmap);
+       //            }
+       //        });
+       //        //将图片保存到本地存储卡中
+       //        File file = new File(Environment.getExternalStorageDirectory(), "image.png");
+       //        FileOutputStream fileOutputStream = new FileOutputStream(file);
+       //        byte[] temp = new byte[128];
+       //        int length;
+       //        while ((length = inputStream.read(temp)) != -1) {
+       //            fileOutputStream.write(temp, 0, length);
+       //        }
+       //        fileOutputStream.flush();
+       //        fileOutputStream.close();
+       //        inputStream.close();
+       //    }
+       //});
     }
 }

@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.knight.jone.mySuperDemo.R;
+import com.knight.jone.mySuperDemo.net.okhttp.OkLoggingInterceptor;
 import com.knight.jone.mySuperDemo.utils.Lg;
 
 import java.io.File;
@@ -32,22 +32,23 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class OkhttpTutorial extends Activity {
-    @BindView(R.id.textView)
-    TextView mTextView;
     @BindView(R.id.getButton)
-    Button   mGetButton;
+    Button mGetButton;
     @BindView(R.id.postButton)
-    Button   mPostButton;
+    Button mPostButton;
     @BindView(R.id.interceptButton)
-    Button   mInterceptButton;
+    Button mInterceptButton;
     private OkHttpClient mOkHttpClient;
 
+    /**
+     * 普通拦截器
+     */
     Interceptor appInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            HttpUrl url     = request.url();
-            String  s       = url.url().toString();
+            HttpUrl url = request.url();
+            String s = url.url().toString();
             //---------请求之前-----
             Lg.d("app interceptor:begin:" + s);
             Response response = chain.proceed(request);
@@ -57,6 +58,9 @@ public class OkhttpTutorial extends Activity {
         }
     };
 
+    /**
+     * 网络拦截器
+     */
     Interceptor netInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
@@ -75,26 +79,79 @@ public class OkhttpTutorial extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_okhttp_tutorial);
         ButterKnife.bind(this);
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
 
-    public void cacheTest(){
+    @OnClick({R.id.getButton, R.id.postButton, R.id.interceptButton})
+    public void click(View view) {
+        if (mOkHttpClient == null) {
+            //1.初始化OkHttpClient对象，可以重复使用
+            mOkHttpClient = new OkHttpClient.Builder().build();
+        }
+
+        switch (view.getId()) {
+            case R.id.getButton:
+                doSimpleGetRequest();
+
+                doQqRequest();
+
+                cacheRequest();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                break;
+
+            case R.id.interceptButton:
+                Lg.d("---拦截器操作测试-----");
+                OkHttpClient build = mOkHttpClient.newBuilder()
+                        .addInterceptor(new OkLoggingInterceptor())
+                        .addNetworkInterceptor(netInterceptor)
+                        .build();
+                Request request = new Request.Builder()
+                        .url("https://www.baidu.com")
+                        .build();
+                build.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Lg.d("---Interceptor测试-----onFailure");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Lg.d("---Interceptor测试-----onResponse");
+                    }
+                });
+                break;
+
+            case R.id.postButton:
+                postData();
+                postRequst();
+                break;
+            default:
+        }
+    }
+
+
+    /**
+     * 测试设置缓存
+     */
+    public void cacheTest() {
         CacheControl cacheControl = new CacheControl.Builder()
                 .maxAge(10, TimeUnit.SECONDS)//最大缓存时间
                 .maxStale(365, TimeUnit.DAYS)//缓存过时时间
                 .build();
     }
 
-    public void test(){
+    public void test() {
         //cache url
-        File httpCacheDirectory = new File(getApplicationContext().getExternalCacheDir()+"/cache", "responses");
+        File httpCacheDirectory = new File(getApplicationContext().getExternalCacheDir() + "/cache", "responses");
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
@@ -119,7 +176,7 @@ public class OkhttpTutorial extends Activity {
     public void initOkhttp() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
-        File         cacheDir     = new File(getCacheDir(), "okhttp_cache");
+        File cacheDir = new File(getCacheDir(), "okhttp_cache");
         //File cacheDir = new File(getExternalCacheDir(), "okhttp");
         Cache cache = new Cache(cacheDir, 10 * 1024 * 1024);
 
@@ -132,59 +189,6 @@ public class OkhttpTutorial extends Activity {
                 //.addInterceptor(loggingInterceptor)//应用拦截器：打印日志
                 .cache(cache)  //设置缓存
                 .build();
-    }
-
-    @OnClick({R.id.getButton, R.id.postButton, R.id.interceptButton})
-    public void click(View view) {
-        if (mOkHttpClient == null) {
-            //1.初始化Okhttp对象，可以重复使用
-            mOkHttpClient = new OkHttpClient.Builder().build();
-        }
-
-        switch (view.getId()) {
-            case R.id.interceptButton:
-                OkHttpClient build = mOkHttpClient.newBuilder()
-                        .addInterceptor(appInterceptor)
-                        .addNetworkInterceptor(netInterceptor)
-                        .build();
-                Request request = new Request.Builder()
-                        .url("http://www.baidu.com")
-                        .build();
-                build.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Lg.d("---Interceptor测试-----");
-                    }
-                });
-                break;
-            case R.id.getButton:
-                Lg.d("----点击----");
-                //doBaiduRequest();
-                //doQqRequest();
-                //cacheRequest();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            execute();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-                break;
-
-            case R.id.postButton:
-                postData();
-                postRequst();
-                break;
-            default:
-        }
     }
 
     private void postData() {
@@ -234,40 +238,34 @@ public class OkhttpTutorial extends Activity {
         });
     }
 
-    private void doQqRequest() {
-        Request.Builder requestBuild = new Request.Builder().url("http://www.qq.com");
-        Call            call         = mOkHttpClient.newCall(requestBuild.build());
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
+    /**
+     * 执行简单的Get请求
+     */
+    public void doSimpleGetRequest() {
+        Lg.d("执行doSimpleGetRequest");
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                ResponseBody body = response.body();
-                Lg.d("doQqRequest:" + body.string());
-            }
-        });
-    }
-
-    public void doBaiduRequest() {
         //2.创建请求对象
         Request.Builder builder = new Request
                 .Builder()
-                .get() //builder.method("GET", null); //默认Get
+                .get() //Get请求默认设置：builder.method("GET", null);
                 .url("http://www.baidu.com");
 
         //3.创建Call对象，用于发起请求
         Call call = mOkHttpClient.newCall(builder.build());
 
-        //同步请求，耗时操作在子线程
+        //同步请求，开辟子线程执行任务避免阻塞
         doExecuteSyncRequest(call);
 
-        //异步
+        //异步，将请求加入队列异步执行
         doEnqueueAsyncRequest(call);
     }
 
+    /**
+     * 异步请求
+     * 将请求加入队列异步执行
+     *
+     * @param call
+     */
     private void doEnqueueAsyncRequest(Call call) {
         call.enqueue(new Callback() {
             @Override
@@ -278,11 +276,17 @@ public class OkhttpTutorial extends Activity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 ResponseBody body = response.body();
-                Lg.d("doBaiduRequest:" + body.string());
+                Lg.d("doSimpleGetRequest:" + body.string());
             }
         });
     }
 
+    /**
+     * 执行同步请求
+     * 开辟子线程执行任务避免阻塞
+     *
+     * @param call
+     */
     private void doExecuteSyncRequest(final Call call) {
         new Thread(new Runnable() {
             @Override
@@ -295,6 +299,23 @@ public class OkhttpTutorial extends Activity {
                 }
             }
         }).start();
+    }
+
+    private void doQqRequest() {
+        Request.Builder requestBuild = new Request.Builder().url("http://www.qq.com");
+        Call call = mOkHttpClient.newCall(requestBuild.build());
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                ResponseBody body = response.body();
+                Lg.d("doQqRequest:" + body.string());
+            }
+        });
     }
 
     private void cacheRequest() {

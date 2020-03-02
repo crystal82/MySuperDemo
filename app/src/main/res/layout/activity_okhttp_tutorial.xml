@@ -29,7 +29,7 @@
         android:text="Post请求数据"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/interceptButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/getButton"/>
     <Button
         android:id="@+id/interceptButton"
         android:layout_width="wrap_content"
@@ -40,16 +40,5 @@
         android:text="拦截器操作"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"/>
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/postButton"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

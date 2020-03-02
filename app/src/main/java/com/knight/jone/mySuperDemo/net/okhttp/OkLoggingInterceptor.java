@@ -2,6 +2,8 @@ package com.knight.jone.mySuperDemo.net.okhttp;
 
 import android.util.Log;
 
+import com.knight.jone.mySuperDemo.utils.Lg;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -18,6 +20,8 @@ import okhttp3.ResponseBody;
 public class OkLoggingInterceptor implements Interceptor {
     private static final String TAG="Okhttp";
     @Override public Response intercept(Interceptor.Chain chain) throws IOException {
+        Lg.d(TAG,"OkLoggingInterceptor日志拦截器");
+
         Request request = chain.request();
 
         long t1 = System.nanoTime();

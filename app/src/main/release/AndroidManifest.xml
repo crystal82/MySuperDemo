@@ -28,7 +28,7 @@
             android:process=":processTwoActivity" />
         <activity android:name=".process.ProcessOneActivity" />
         <activity
-            android:name=".handler.HandlerTest"
+            android:name=".net.tutorial.OkhttpTutorial"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
